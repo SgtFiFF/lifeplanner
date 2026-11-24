@@ -1,7 +1,18 @@
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { AuthProvider } from './auth/AuthProvider'
+import { RequireAuth } from './auth/RequireAuth'
+import LoginPage from './pages/LoginPage'
+import HomePage from './pages/HomePage'
+
+const router = createHashRouter([
+  { path: '/login', element: <LoginPage /> },
+  { path: '/', element: <RequireAuth><HomePage /></RequireAuth> },
+])
+
 export default function App() {
   return (
-    <main className="min-h-screen bg-slate-900 text-white grid place-items-center">
-      <h1 className="text-3xl font-bold">Lifeplanner läuft 🚀</h1>
-    </main>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   )
 }
